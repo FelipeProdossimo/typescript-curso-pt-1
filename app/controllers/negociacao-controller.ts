@@ -17,6 +17,7 @@ export class NegociacaoController {
         this.inputQuantidade = document.querySelector('#quantidade');
         this.inputValor = document.querySelector('#valor');
         this.negociacoesView.update(this.negociacoes); //negociacoes é o modelo
+        this.negociacoesView
     }
 
     adiciona(): void {
