@@ -7,3 +7,5 @@ export enum DiaDaSemana{
     SEXTA = 5,
     SABADO = 6
 }
+
+// name space com valores de constante
