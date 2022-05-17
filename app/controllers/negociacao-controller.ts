@@ -1,3 +1,4 @@
+import { LogarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
 import { DiaDaSemana } from "../enums/dias-da-semana.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
@@ -13,13 +14,15 @@ export class NegociacaoController {
     private mensagemView = new MensagemView('#mensagemView');
  
     constructor() { // Duas formas disponiveis 
-        this.inputData = document.querySelector('#data') as HTMLInputElement;
-        this.inputQuantidade = <HTMLInputElement> document.querySelector('#quantidade');
+        this.inputData = document.querySelector('#data') as HTMLInputElement; //ESSA
+        this.inputQuantidade = <HTMLInputElement> document.querySelector('#quantidade'); // OU ESSAS DUAS AQUI
         this.inputValor = <HTMLInputElement> document.querySelector('#valor');
         this.negociacoesView.update(this.negociacoes); //negociacoes é o modelo
     }
 
+    @LogarTempoDeExecucao()
     public adiciona(): void {
+        
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
             this.inputQuantidade.value,
