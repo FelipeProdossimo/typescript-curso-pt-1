@@ -5,7 +5,12 @@ export abstract class View<T> {
     
     //colocar o "?" Após o parâmetro ele se torna opcional. sempre o último se torna opcional.
     constructor(seletor: string, escapar?: boolean){
-        this.elemento = document.querySelector(seletor);
+        const elemento = document.querySelector(seletor);
+        if (elemento) {
+            this.elemento = elemento as HTMLElement;
+        }else{
+            throw Error(`Seletor ${seletor} não existe no DOM. Verifique!`)
+        }
         if (escapar) {
             this.escapar = escapar;
         }
