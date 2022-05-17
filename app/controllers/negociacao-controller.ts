@@ -9,18 +9,18 @@ import { domInjector } from "../decorators/dom-injector.js";
 
 export class NegociacaoController {
     @domInjector('#data')
-    private inputData : HTMLInputElement;
+    private inputData: HTMLInputElement;
 
     @domInjector('#quantidade')
     private inputQuantidade: HTMLInputElement;
 
     @domInjector('#valor')
     private inputValor: HTMLInputElement;
-    
+
     private negociacoes = new Negociacoes();
     private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
- 
+
     constructor() { // Duas formas disponiveis 
         this.negociacoesView.update(this.negociacoes); //negociacoes é o modelo
     }
@@ -44,13 +44,31 @@ export class NegociacaoController {
         this.atualizaView();
     }
 
-    importaDados(): void {
-        alert('Hello');
+    public importaDados(): void {
+        fetch('http://localhost:8080/dados')
+            .then(res => res.json())
+            .then((dados: any[]) => {
+                return dados.map(dadoDeHoje => {
+                    return new Negociacao(
+                        new Date(),
+                        dadoDeHoje.vezes,
+                        dadoDeHoje.montante
+                    )
+                })
+            })
+            .then(negociacoesDeHoje => {
+                for(let negociacao of negociacoesDeHoje) {
+                    this.negociacoes.adiciona(negociacao);
+                }
+                this.negociacoesView.update(this.negociacoes);
+            });
     }
 
+
+
     private ehDiaUtil(data: Date) {
-        return data.getDay() > DiaDaSemana.DOMINGO 
-        && data.getDay() < DiaDaSemana.SABADO;
+        return data.getDay() > DiaDaSemana.DOMINGO
+            && data.getDay() < DiaDaSemana.SABADO;
     }
 
     private limparFormulario(): void {
