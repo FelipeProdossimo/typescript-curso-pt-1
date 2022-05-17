@@ -9,3 +9,5 @@
 
 ## Como instalar e iniciar o Servidor-API
 ### Já para instalar e iniciar o Servidor API, basta abrir outro terminal(bash), entre na pasta servidor-api `` cd servidor-api `` e escrever `` npm install `` para instalar. Para iniciar é quase igual o `` node `` escreva `` npm start ``.
+
+*Obs:* Para ver seus  *dados*, abra uma pagina no *Google*, escreva na barra `` localhost:8080/dados ``. Dê enter depois.
