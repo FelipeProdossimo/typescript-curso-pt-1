@@ -16,7 +16,7 @@ export function LogarTempoDeExecucao(emSegundos: boolean = false) {
             const retorno = metodoOriginal.apply(this, args);
             const t2 = performance.now();
             //linha abaixo para verificar os segundos.
-            //console.log(`${propertyKey}, tempo de execução ${(t2 - t1) / divisor} ${unidade}`);
+            console.log(`${propertyKey}, tempo de execução ${(t2 - t1) / divisor} ${unidade}`);
             retorno
         };
 
