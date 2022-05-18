@@ -1,10 +1,15 @@
-export class Negociacao {
+import { Imprimivel } from "../utils/imprimivel.js";
+
+export class Negociacao extends Imprimivel{
 
     constructor(
         private _data: Date, 
         public readonly quantidade: number, 
         public readonly valor: number
-        ) {}
+        ) {
+            super(); // devemos chamar para o imprimivel e-
+            //-por conta do constructor estar reescrevendo por cima ele vai reclamar
+        }
 
     public static criaDe(dataString: string, quantidadeString: string, valorString: string): Negociacao {
         const exp = /-/g;
@@ -31,3 +36,4 @@ export class Negociacao {
         `;
     }
 }
+

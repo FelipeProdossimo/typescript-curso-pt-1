@@ -7,6 +7,7 @@ import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 import { domInjector } from "../decorators/dom-injector.js";
 import { NegociacoesService } from "../services/negociacoes-service.js";
+import { imprimir } from "../utils/imprimir.js";
 
 export class NegociacaoController {
     @domInjector('#data')
@@ -40,9 +41,7 @@ export class NegociacaoController {
             return;
         }
         this.negociacoes.adiciona(negociacao);
-        console.log(negociacao.paraTexto());
-        console.log(this.negociacoes.paraTexto());
-
+        imprimir(negociacao, this.negociacoes);
         this.limparFormulario();
         this.atualizaView();
     }
