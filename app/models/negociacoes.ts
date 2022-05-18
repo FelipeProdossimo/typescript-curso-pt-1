@@ -1,9 +1,8 @@
-import { comparavel } from "../interfaces/comparavel.js";
-import { Imprimivel } from "../utils/imprimivel.js";
+import { Modelo } from "../interfaces/modelo.js";
 import { Negociacao } from "./negociacao.js";
 //Tipo Generics no modo Array
 //Array + <T> é para complementar a class com varios tipos genericamente.
-export class Negociacoes implements Imprimivel, comparavel<Negociacoes> {
+export class Negociacoes implements Modelo<Negociacoes> {
     
     private negociacoes: Negociacao[] = [];
 

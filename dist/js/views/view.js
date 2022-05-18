@@ -25,3 +25,4 @@ __decorate([
     LogarTempoDeExecucao(true),
     inspect()
 ], View.prototype, "update", null);
+//# sourceMappingURL=view.js.map
