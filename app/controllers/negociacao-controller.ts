@@ -6,21 +6,19 @@ import { Negociacoes } from "../models/negociacoes.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 import { domInjector } from "../decorators/dom-injector.js";
-import { NegociacoesDoDia } from "../interfaces/negociacao-do-dia.js";
+import { NegociacoesService } from "../services/negociacoes-service.js";
 
 export class NegociacaoController {
     @domInjector('#data')
     private inputData: HTMLInputElement;
-
     @domInjector('#quantidade')
     private inputQuantidade: HTMLInputElement;
-
     @domInjector('#valor')
     private inputValor: HTMLInputElement;
-
     private negociacoes = new Negociacoes();
     private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
+    private negociacoesService = new NegociacoesService();
 
     constructor() { // Duas formas disponiveis 
         this.negociacoesView.update(this.negociacoes); //negociacoes é o modelo
@@ -29,6 +27,8 @@ export class NegociacaoController {
     @inspect()
     @LogarTempoDeExecucao()
     public adiciona(): void {
+
+
 
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
@@ -39,26 +39,16 @@ export class NegociacaoController {
             this.mensagemView.update('Apenas negociacoes em dias uteis são aceitas');
             return;
         }
-
         this.negociacoes.adiciona(negociacao);
         this.limparFormulario();
         this.atualizaView();
     }
 
     public importaDados(): void {
-        fetch('http://localhost:8080/dados')
-            .then(res => res.json())
-            .then((dados: NegociacoesDoDia[]) => {
-                return dados.map(dadoDeHoje => {
-                    return new Negociacao(
-                        new Date(),
-                        dadoDeHoje.vezes,
-                        dadoDeHoje.montante
-                    )
-                })
-            })
-            .then(negociacoesDeHoje => {
-                for(let negociacao of negociacoesDeHoje) {
+        this.negociacoesService
+        .obterNegociacoesDoDia()
+        .then(negociacoesDeHoje => {
+            for(let negociacao of negociacoesDeHoje) {
                     this.negociacoes.adiciona(negociacao);
                 }
                 this.negociacoesView.update(this.negociacoes);
