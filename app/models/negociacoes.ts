@@ -2,7 +2,7 @@ import { Imprimivel } from "../utils/imprimivel.js";
 import { Negociacao } from "./negociacao.js";
 //Tipo Generics no modo Array
 //Array + <T> é para complementar a class com varios tipos genericamente.
-export class Negociacoes extends Imprimivel{
+export class Negociacoes implements Imprimivel{
     private negociacoes: Negociacao[] = [];
 
     public adiciona(negociacao: Negociacao){

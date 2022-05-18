@@ -41,7 +41,7 @@ export class NegociacaoController {
             return;
         }
         this.negociacoes.adiciona(negociacao);
-        imprimir(negociacao, this.negociacoes);
+        imprimir(negociacao, this.negociacoes);''
         this.limparFormulario();
         this.atualizaView();
     }
@@ -49,6 +49,13 @@ export class NegociacaoController {
     public importaDados(): void {
         this.negociacoesService
         .obterNegociacoesDoDia()
+        .then(negociacoesDeHoje => {
+            return negociacoesDeHoje.filter(negociacoesDeHoje => {
+                return !this.negociacoes
+                .lista()
+                .some(negociacao => negociacao.ehIgual(negociacoesDeHoje));
+            });
+        })
         .then(negociacoesDeHoje => {
             for(let negociacao of negociacoesDeHoje) {
                     this.negociacoes.adiciona(negociacao);
